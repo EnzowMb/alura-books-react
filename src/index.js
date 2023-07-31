@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import Home from './rotas/Home';
 import reportWebVitals from './reportWebVitals';
 import { createGlobalStyle } from 'styled-components';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Header from './componentes/Header';
+import Favoritos from './rotas/Favoritos';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -32,9 +34,10 @@ root.render(
   <React.StrictMode>
     <GlobalStyle />
     <BrowserRouter> {/* este é o encapsulador das rotas, ele que vai permitir que as rotas existam*/}
+      <Header />
       <Routes> {/* Vai ser meio que um anunciador de que existirao rotas a partir daqui */}
-        <Route path="/favoritos" element={<p>Oi!</p>} />
-        <Route path="/" element={<App />} /> {/* seria meio q nossa /home */}
+        <Route path="/favoritos" element={<Favoritos />} />
+        <Route path="/" element={<Home />} /> {/* seria meio q nossa /home */}
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
