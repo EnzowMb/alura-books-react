@@ -1,7 +1,8 @@
 import Input from "../Input"
 import styled from "styled-components"
-import { useState } from "react"
-import { livros } from './dadosPesquisa'
+import { useEffect, useState } from "react"
+import { getLivros } from "../../servicos/livros"
+import { postFavorito } from "../../servicos/favoritos"
 
 const PesquisaContainer = styled.section`
     background-image: linear-gradient(90deg, #002F52 35%, #326589 165%);
@@ -45,6 +46,25 @@ const Resultado = styled.div`
 const Pesquisa = () => {
 
     const [livrosPesquisados, setLivrosPesquisados] = useState([])
+    const [ livros, setLivros ] = useState([])
+
+    //Esse useffect é para gente já carregar os dados dos livros da API pra fazer a pesquisa.
+    //1° Parametro -> uma função que a ação que ele vai fazer quando a tela carregar!!
+    //2° Esse 2 Parametro é uma lista vazia! 
+    useEffect(() => {
+        fetchLivros()
+    }, [])
+
+    //fetch significa atualizar
+    async function fetchLivros() {
+        const livrosDaAPI = await getLivros()
+        setLivros(livrosDaAPI)
+    }
+
+    async function insertFavorito(id) {
+        await postFavorito(id)
+        alert(`Livro de id:${id} inserido`)
+    }
 
     return (
         <PesquisaContainer>
@@ -59,9 +79,9 @@ const Pesquisa = () => {
                 }}
             />
             {livrosPesquisados.map(livro => (
-                <Resultado>
-                    <p>{livro.nome}</p>
+                <Resultado onClick={() => insertFavorito(livro.id)}>
                     <img src={livro.src} />
+                    <p>{livro.nome}</p>
                 </Resultado>
             ))}
         </PesquisaContainer>
