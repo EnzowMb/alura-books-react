@@ -23,7 +23,7 @@ const OpcoesHeader = () => {
     return (
         <Opcoes>
             {textoOpcoes.map((texto) => (
-                //O link possui um to, que é para onde esse cara vai mandar, qual rota -> no caso: favoritos
+                //O link possui um to, que é para onde esse cara vai mandar, qual rota -> no caso: favorito
                 <Link to={`/${texto.toLowerCase()}`} ><Opcao><p>{texto}</p></Opcao></Link>
             ))}
         </Opcoes>
